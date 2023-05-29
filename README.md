@@ -31,13 +31,15 @@ pip install coffeefetch
 ```
 
 ## Usage
-To use CoffeeFetch, simply type into your terminal:
+To use CoffeeFetch, type into your terminal:
 ```
 python3 -m coffeefetch
 ```
 
 ## NOTE
 This project is currently in the works and I have not finished it yet
+This is a NEW repository so feel free to post any issues you may find.
+
 Currently working on:
 + converting this project into a Python Package
 + adding random quotes that appear below the image
