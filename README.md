@@ -1,6 +1,6 @@
 # CoffeeFetch
 ![image](https://github.com/TeaPixl/CoffeeFetch/assets/106362493/b814fc52-e229-41a8-97a0-70b91c9eb051)
-## A lightweight system information grabber written in Python
+## A lightweight system info grabber written in Python
 
 ## Introduction
 CoffeeFetch is a system information grabber for Unix systems that fetches your system information and displays it to the screen. This is a lightweight package and is built to be run on systems without the use of a Window Manager or Desktop Enviornment and is displayed directly in in TTY. It will attempt to grab you CPU model, CPU frequency, current RAM consumption, current disk usage, Operating System, CPU architecture, IP Address, hostname, and OS version.
