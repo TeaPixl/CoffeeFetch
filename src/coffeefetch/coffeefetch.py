@@ -34,13 +34,6 @@ def spinningCursor(): # shows the script is running, dosent actually mean anythi
         for cursor in "|/-\\":
             yield cursor
 
-spinner = spinningCursor()
-for _ in range(7):
-    sys.stdout.write(next(spinner))
-    sys.stdout.flush()
-    time.sleep(0.1)
-    sys.stdout.write('\b')
-
 def currentUser(): #current user logged in
     user = getpass.getuser()
     print("Hello, " + user)
@@ -102,6 +95,12 @@ def infoGrabber():
         data.append(str(round(psutil.virtual_memory().total / (1024.0 **3)))+" GB") # total RAM
         usage = (psutil.virtual_memory()[2]) # RAM usage
         newUsage = str(round(usage))
+        spinner = spinningCursor()
+        for _ in range(7):
+            sys.stdout.write(next(spinner))
+            sys.stdout.flush()
+            time.sleep(0.1)
+            sys.stdout.write('\b')
         print(cupImage)
         currentUser()
         getTime()
@@ -120,4 +119,3 @@ def infoGrabber():
         logging.exception(e)
         print("\nSomething has failed, please check for any issues!!!")
         
-infoGrabber()
