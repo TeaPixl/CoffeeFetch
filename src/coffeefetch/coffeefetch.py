@@ -1,6 +1,6 @@
 # TTY system information grabber, written in Python
 # Built to run on Unix-like systems, but may function on other systems
-# Written and tested by Logan Allen, 2023
+# Written and tested by Logan Allen, 2023, quotes written at http://www.yaldex.com/
 # PLEASE REPORT ANY ISSUES TO THE GITHUB REPOSITORY!!! www.github.com/TeaPixl
 from socket import gethostname, gethostbyname
 from platform import machine, system, processor, release
@@ -11,6 +11,8 @@ import sys
 import time
 import getpass
 import shutil
+import random
+import os
 
 cupImage= """                                                                                       
                                       ██    ██    ██                                    
@@ -28,11 +30,32 @@ cupImage= """
                                 ████████████████████████                                
                                 ██                    ██                                
                                   ████████████████████"""
-                                     
+
+# randomly pick from a list of random quotes
+def quoteGen():
+    try:
+         path = os.path.dirname(__file__)
+         realPath = "quotes/quotes.txt"
+         location = os.path.join(path, realPath)
+         with open(location, 'r') as f:
+             quotes = [] # all quotes in list, randomly pick 1 out of 20
+             text = f.readlines()
+             quotes.append(text)
+             chosen = random.choice(text)
+             print("\n                             " + chosen)
+    except Exception as e:
+        logging.exception(e)
+        print("\nQuoteGen failed... Proceeding.")
+        pass
+
 def spinningCursor(): # shows the script is running, dosent actually mean anything :/
-    while True:
-        for cursor in "|/-\\":
-            yield cursor
+    try:
+        while True:
+            for cursor in "|/-\\":
+                yield cursor
+    except Exception as e:
+        logging.exception(e)
+        print("spinningCursor failed... Proceeding.")
 
 def currentUser(): #current user logged in
     user = getpass.getuser()
@@ -45,8 +68,9 @@ def getTime():
         print("It is: "+ current_time)
     except Exception as e:
         logging.exception(e)
-        print("\nSomething's wrong, Unable to display the current time")
-
+        print("\nSomething's wrong, Unable to display the current time.")
+        exit()
+        
 # display the system uptime in a readable format
 def bootTime():
     return time.time() - psutil.boot_time()
@@ -68,8 +92,8 @@ try:
     newFraction = str(round(fraction, 1))
 except Exception as e:
     logging.exception(e)
-    print("\nSomething went wrong while trying to access your disk... Proceeding.")
-    pass
+    print("\nSomething went wrong while trying to access your disk.")
+    exit()
 
 # get CPU frequency
 try:
@@ -80,8 +104,8 @@ try:
     freq = str(round(floatFreq, 2))
 except Exception as e:
     logging.exception(e)
-    print("\nSomething went wrong while trying to access your CPU info.... Proceeding.")
-    pass
+    print("\nSomething went wrong while trying to access your CPU info.")
+    exit()
 
 def infoGrabber():
     try:
@@ -102,6 +126,7 @@ def infoGrabber():
             time.sleep(0.1)
             sys.stdout.write('\b')
         print(cupImage)
+        quoteGen()
         currentUser()
         getTime()
         print("*------------------------------*") # display the data
@@ -118,4 +143,4 @@ def infoGrabber():
     except Exception as e:
         logging.exception(e)
         print("\nSomething has failed, please check for any issues!!!")
-        
+        exit()
