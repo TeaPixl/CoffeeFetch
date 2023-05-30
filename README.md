@@ -7,6 +7,7 @@ CoffeeFetch is a system information grabber for Unix systems that fetches your s
 
 ## Installation
 It is required to use Python 3.7 or greater for this package. 
+> psutil >= 5.9.5 is required for this package.
 
 Firstly, clone this repository:
 ```
