@@ -19,7 +19,7 @@ Then, install the required Python modules
 pip install -r requirements.txt
 ```
 Build and install the .whl file
-> Change the X version you have
+> Change the X.X.X to the version you have
 ```
 python3 -m build
 cd dist/
