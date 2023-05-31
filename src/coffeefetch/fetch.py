@@ -31,7 +31,6 @@ cupImage= """
                                 ██                    ██                                
                                   ████████████████████"""
 
-# randomly pick from a list of random quotes
 def quoteGen():
     try:
          path = os.path.dirname(__file__)
@@ -48,7 +47,7 @@ def quoteGen():
         print("\nQuoteGen failed... Proceeding.")
         pass
 
-def spinningCursor(): # shows the script is running, dosent actually mean anything :/
+def spinningCursor():
     try:
         while True:
             for cursor in "|/-\\":
@@ -57,7 +56,7 @@ def spinningCursor(): # shows the script is running, dosent actually mean anythi
         logging.exception(e)
         print("spinningCursor failed... Proceeding.")
 
-def currentUser(): #current user logged in
+def currentUser(): #current user
     user = getpass.getuser()
     print("Hello, " + user)
     
@@ -71,22 +70,20 @@ def getTime():
         print("\nSomething's wrong, Unable to display the current time.")
         exit()
         
-# display the system uptime in a readable format
 def bootTime():
     return time.time() - psutil.boot_time()
 
 boot = bootTime()/60
 approxBoot = round(boot, 1)
 
-# Grab disk usage
 try:
     info = []
-    d = shutil.disk_usage("/") # info listed as tuple (total, used, free) *data in bytes
-    info = list(d) #convert to list and remove unwanted attr.
+    d = shutil.disk_usage("/") #tuple (total, used, free) *data in bytes
+    info = list(d)
     info.pop(2)
-    total = int(info[0]) / (1024 * 1024 * 1024) # total disk space
+    total = int(info[0]) / (1024 * 1024 * 1024)
     totalDisk = round(total, 1)
-    used = int(info[1]) / (1024 * 1024 * 1024) # total used space
+    used = int(info[1]) / (1024 * 1024 * 1024)
     usedDisk = round(used, 1)
     fraction = (usedDisk / totalDisk) *100
     newFraction = str(round(fraction, 1))
@@ -95,10 +92,9 @@ except Exception as e:
     print("\nSomething went wrong while trying to access your disk.")
     exit()
 
-# get CPU frequency
 try:
     data = []
-    cpuData = psutil.cpu_freq() # tuple with (current, min, max)
+    cpuData = psutil.cpu_freq() # tuple (current, min, max)
     data = list(cpuData)
     floatFreq = int(data[0])/1000 #convert MHz to GHz
     freq = str(round(floatFreq, 2))
@@ -109,13 +105,13 @@ except Exception as e:
 
 def main():
     try:
-        data = [] # data fills this list from 0-6
-        data.append(str(system())) # OS
-        data.append(str(release())) # version
-        data.append(str(machine())) # architecture
-        data.append(str(gethostname())) # hostname, duh
-        data.append(str(gethostbyname(gethostname()))) # IP addr.
-        data.append(str(processor())) # CPU
+        data = [] # data fills list from 0-6
+        data.append(str(system()))
+        data.append(str(release()))
+        data.append(str(machine()))
+        data.append(str(gethostname()))
+        data.append(str(gethostbyname(gethostname())))
+        data.append(str(processor()))
         data.append(str(round(psutil.virtual_memory().total / (1024.0 **3)))+" GB") # total RAM
         usage = (psutil.virtual_memory()[2]) # RAM usage
         newUsage = str(round(usage))
@@ -129,7 +125,7 @@ def main():
         quoteGen()
         currentUser()
         getTime()
-        print("*------------------------------*") # display the data
+        print("*------------------------------*") # display
         print("OS: "+ data[0])
         print("VERSION: "+ data[1])
         print("CPU: "+ data[5] + " ("+ freq + " GHz)")
