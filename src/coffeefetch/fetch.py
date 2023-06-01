@@ -1,6 +1,6 @@
 # TTY system information grabber, written in Python
 # Built to run on Unix-like systems, but may function on other systems
-# Written and tested by Logan Allen, 2023, quotes written at http://www.yaldex.com/
+# Written and tested by Logan Allen, 2023
 # PLEASE REPORT ANY ISSUES TO THE GITHUB REPOSITORY!!! www.github.com/TeaPixl
 from socket import gethostname, gethostbyname
 from platform import machine, system, processor, release

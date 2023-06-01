@@ -1,5 +1,5 @@
 # CoffeeFetch
-![image](https://github.com/TeaPixl/CoffeeFetch/assets/106362493/d4a4ee47-d3d1-4581-a9a8-e5a54605799d)
+![image](https://github.com/TeaPixl/CoffeeFetch/assets/106362493/71e27b7e-3d09-4b5b-8b6e-384b3f781b1b)
 ## A lightweight system info grabber written in Python
 
 ## Introduction
