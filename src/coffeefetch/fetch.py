@@ -1,10 +1,10 @@
 # TTY system information grabber, written in Python
-# Built to run on Unix-like systems, but may function on other systems
+# Built to run on Unix-like systems, may function on other systems
 # Written and tested by Logan Allen, 2023
-# PLEASE REPORT ANY ISSUES TO THE GITHUB REPOSITORY!!! www.github.com/TeaPixl
-from socket import gethostname, gethostbyname
+# PLEASE REPORT ANY ISSUES TO THE GITHUB REPOSITORY @ www.github.com/TeaPixl
 from platform import machine, system, processor, release
 from datetime import datetime
+import socket
 import psutil
 import logging
 import sys
@@ -31,6 +31,7 @@ cupImage= """
                                 ██                    ██                                
                                   ████████████████████"""
 
+# quotes
 def quoteGen():
     try:
          path = os.path.dirname(__file__)
@@ -47,6 +48,7 @@ def quoteGen():
         print("\nQuoteGen failed... Proceeding.")
         pass
 
+# loading cursor
 def spinningCursor():
     try:
         while True:
@@ -56,6 +58,7 @@ def spinningCursor():
         logging.exception(e)
         print("spinningCursor failed... Proceeding.")
 
+# welcome text
 def currentUser(): #current user
     user = getpass.getuser()
     print("Hello, " + user)
@@ -76,6 +79,7 @@ def bootTime():
 boot = bootTime()/60
 approxBoot = round(boot, 1)
 
+# disk usage
 try:
     info = []
     d = shutil.disk_usage("/") #tuple (total, used, free) *data in bytes
@@ -92,6 +96,7 @@ except Exception as e:
     print("\nSomething went wrong while trying to access your disk.")
     exit()
 
+# cpu freq.
 try:
     data = []
     cpuData = psutil.cpu_freq() # tuple (current, min, max)
@@ -103,14 +108,29 @@ except Exception as e:
     print("\nSomething went wrong while trying to access your CPU info.")
     exit()
 
+# get ip address
+try:
+    realAddress = ()
+    request = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    request.connect(("8.8.8.8", 80)) # connect to an address that is usually up
+    addr = request.getsockname()
+    ip = list(addr)
+    ip.pop(1)
+    realAddress = str(ip)[2:-2]
+except Exception as e:
+    logging.exception(e)
+    print("Failed while trying to fetch socket info... Proceeding.")
+    pass
+
+'''MAIN PROGRAM'''
 def main():
     try:
         data = [] # data fills list from 0-6
         data.append(str(system()))
         data.append(str(release()))
         data.append(str(machine()))
-        data.append(str(gethostname()))
-        data.append(str(gethostbyname(gethostname())))
+        data.append(str(socket.gethostname()))
+        data.append(str(realAddress))
         data.append(str(processor()))
         data.append(str(round(psutil.virtual_memory().total / (1024.0 **3)))+" GB") # total RAM
         usage = (psutil.virtual_memory()[2]) # RAM usage
@@ -140,6 +160,7 @@ def main():
         logging.exception(e)
         print("\nSomething has failed, please check for any issues!!!")
         exit()
+
 
 if __name__ == "__main__":
     main()
