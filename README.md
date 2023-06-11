@@ -42,5 +42,5 @@ This project is currently in the works and I have not finished it yet.
 This is a NEW repository so feel free to post any issues you may find.
 
 Currently working on:
-+ adding -help and other discrete commands
++ Providing more detailed exceptions
 + testing
